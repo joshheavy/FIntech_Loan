@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.fintech_loan"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -41,12 +41,4 @@ android {
 
 flutter {
     source = "../.."
-}
-
-dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.22")
-    implementation("io.flutter:flutter_embedding_debug:1.0.0")
 }
