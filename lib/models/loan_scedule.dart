@@ -22,10 +22,10 @@ class LoanSchedule {
   };
 
   factory LoanSchedule.fromJson(Map<String, dynamic> json) => LoanSchedule(
-    loanId: json['loanId'], 
-    installmentNumber: json['installmentNumber'], 
-    dueDate: json['dueDate'], 
-    amount: json['amount'], 
-    status: json['status']
+    loanId: json['loanId'] as String,
+    installmentNumber: json['installmentNumber'] as int,
+    dueDate: DateTime.parse(json['dueDate'] as String),
+    amount: (json['amount'] as num).toDouble(),
+    status: json['status'] as String,
   );
 }

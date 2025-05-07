@@ -39,6 +39,19 @@ dependencies:
   shared_preferences: ^2.5.3
   intl: ^0.20.2
   image_picker: ^1.1.2
+  animations: ^2.0.11
+  uuid: ^4.5.1
+  lottie: ^3.3.1
+  flutter_native_splash: ^2.4.6
+  flutter_launcher_icons: ^0.14.3
+  fl_chart: ^0.71.0
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/fintech_wallet_icon.png
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/fintech_wallet_icon.png
 
 dev_dependencies:
   flutter_test:
@@ -63,8 +76,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
+    - assets/animation/fintech_animation.json
+    - assets/animation/fintech_animation2.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,10 +1,17 @@
+import 'package:flutter/material.dart';
+
 class Customer {
   final String id;
   final String fullName;
   final String email;
   final String phone;
-  final String dateOfRegistration;
+  final DateTime dateOfRegistration;
   final String customerType;
+  final Color avatarColor;
+  final String? profileImage;
+  final String? address;
+  final String? notes;
+  final String? status;
 
   Customer({
     required this.id,
@@ -13,6 +20,11 @@ class Customer {
     required this.phone,
     required this.dateOfRegistration,
     required this.customerType,
+    required this.avatarColor,
+    this.profileImage,
+    this.address, 
+    this.notes,
+    this.status = 'Active',
   });
 
   Map<String, dynamic> toJson() => {
@@ -20,8 +32,13 @@ class Customer {
     'fullName': fullName,
     'email': email,
     'phone': phone,
-    'dateOfRegistration': dateOfRegistration,
+    'dateOfRegistration': dateOfRegistration.toIso8601String(),
     'customerType': customerType,
+    'avatarColor': avatarColor.value,
+    'profileImage': profileImage, 
+    'address': address, 
+    'notes': notes,
+    'status': status,
   };
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
@@ -29,7 +46,12 @@ class Customer {
     fullName: json['fullName'],
     email: json['email'],
     phone: json['phone'],
-    dateOfRegistration: json['dateOfRegistration'],
+    dateOfRegistration: DateTime.parse(json['dateOfRegistration'] as String),
     customerType: json['customerType'],
+    avatarColor: Color(json['avatarColor'] as int),
+    profileImage: json['profileImage'] as String?,
+    address: json['address'] as String?,
+    notes: json['notes'] as String?,
+    status: json['status'] as String? ?? 'Active',
   );
 }

@@ -1,12 +1,15 @@
-import 'package:fintech_loan/screens/customers/add_customer_screen.dart';
-import 'package:fintech_loan/screens/customers/customer_list_screen.dart';
-import 'package:fintech_loan/screens/loans/add_loan_screen.dart';
-import 'package:fintech_loan/screens/loans/loan_list_screen.dart';
-import 'package:fintech_loan/screens/payments/add_payment_screen.dart';
-import 'package:fintech_loan/screens/payments/payment_list_screen.dart';
+import 'package:fintech_loan/cubit/Customer/customer_cubit.dart';
+import 'package:fintech_loan/cubit/LoanSchedule/loan_schedule_cubit.dart';
+import 'package:fintech_loan/cubit/loan/loan_cubit.dart';
+import 'package:fintech_loan/cubit/payment/payment_cubit.dart';
+import 'package:fintech_loan/screens/dashboard_screen.dart';
+import 'package:fintech_loan/services/localStorage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalStorageService.init();
   runApp(const MyApp());
 }
 
@@ -15,22 +18,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fintech Loan System',
-      theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CustomerCubit>(create: (_) => CustomerCubit()..loadCustomers()),
+        BlocProvider<LoanCubit>(create: (_) => LoanCubit()..loadLoans()),
+        BlocProvider<LoanScheduleCubit>(create: (_) => LoanScheduleCubit()..loanSchedules()),
+        BlocProvider<PaymentCubit>(create: (_) => PaymentCubit()..loadPayment()),
+      ],
+      child: MaterialApp(
+        title: 'Fintech Loan App',
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          primarySwatch: Colors.blue,
+        ),
+        home: const DashboardScreen(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: CustomerListScreen(),
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/customers': (context) => CustomerListScreen(),
-        '/addCustomer': (context) => AddCustomerScreen(),
-        '/loans': (context) => LoanListScreen(),
-        '/addLoan': (context) => AddLoanScreen(),
-        '/payments': (context) => PaymentListScreen(),
-        '/addPayment': (context) => AddPaymentScreen(),
-      }
     );
   }
 }
